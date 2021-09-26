@@ -1,10 +1,11 @@
-import FilterInput from "./FilterInput";
 import { useState, useEffect } from "react";
+import ReactPaginate from "react-paginate";
 
 const Card = ({ onDataAvailable, data }) => {
   const [homeList, setHomeList] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState();
+  const [pageNumber, setPageNumber] = useState(0);
 
   const loadingList = () => {
     const url = `https://lottie-boh-assets.s3.eu-west-2.amazonaws.com/listings.json`;
@@ -27,6 +28,9 @@ const Card = ({ onDataAvailable, data }) => {
       });
   };
 
+  const homesPerPage = 5;
+  const pagesVisited = pageNumber * homesPerPage;
+
   const displayHomes = (homesFeed) => {
     console.log(homesFeed);
     let homesFeedArray = [];
@@ -37,27 +41,35 @@ const Card = ({ onDataAvailable, data }) => {
 
     let feedToRender =
       data === undefined || data.length === 0 ? homesFeedArray : data;
-    return feedToRender.map((houses) => {
-      return (
-        <li className="list">
-          <div>
-            <img
-              className="images"
-              src={imagesUrl + houses.imagePath}
-              alt="new"
-            ></img>
-            <p>{houses.name}</p>
-            <p>{houses.cqcRating} CQC Rating</p>
-            <p>£ {houses.pricesFrom}</p>
-          </div>
-        </li>
-      );
-    });
+    console.log("woppp", feedToRender.length);
+    return feedToRender
+      .slice(pagesVisited, pagesVisited + homesPerPage)
+      .map((houses) => {
+        return (
+          <li className="list">
+            <div>
+              <img
+                className="images"
+                src={imagesUrl + houses.imagePath}
+                alt="new"
+              ></img>
+              <p>{houses.name}</p>
+              <p>{houses.cqcRating} CQC Rating</p>
+              <p>£ {houses.pricesFrom}</p>
+            </div>
+          </li>
+        );
+      });
   };
 
   useEffect(() => {
     loadingList();
   }, []);
+
+  const pageCount = (homesNumber) => {
+    console.log("----->");
+    return Math.ceil(Object.keys(homesNumber).length / homesPerPage);
+  };
 
   return (
     <div>
@@ -69,6 +81,19 @@ const Card = ({ onDataAvailable, data }) => {
           {homeList.length !== 0 && !error ? displayHomes(homeList) : null}
         </ul>
       )}
+      <ReactPaginate
+        previousLabel={"Previous"}
+        nextLabel={"Next"}
+        pageCount={homeList.length !== 0 && !error ? pageCount(homeList) : null}
+        onPageChange={({ selected }) => setPageNumber(selected)}
+        marginPagesDisplayed={0}
+        pageRangeDisplayed={5}
+        containerClassName={"paginationBttns"}
+        previousLinkClassName={"previousBttn"}
+        nextLinkClassName={"nextBttn"}
+        disabledClassName={"paginationDisabled"}
+        activeClassName={"paginationActive"}
+      />
     </div>
   );
 };

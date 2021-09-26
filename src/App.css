@@ -27,3 +27,31 @@ body {
   border-radius: 8px;
   opacity: 0.8;
 }
+
+.paginationBttns {
+  margin-top: 60px;
+  width: 80vw;
+  height: 40px;
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+}
+
+.paginationBttns a {
+  padding: 10px;
+  margin: 8px;
+  border-radius: 6px;
+  border: 1px solid #596980;
+  color: #596980;
+  cursor: pointer;
+}
+
+.paginationBttns a:hover {
+  color: white;
+  background-color: #596980;
+}
+
+.paginationActive a {
+  color: white;
+  background-color: #596980;
+}

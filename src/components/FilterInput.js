@@ -9,7 +9,16 @@ const userInputFilter = (data, userinput) => {
   let arrayFiltered = [];
   if (Array.isArray(homesFeedArray)) {
     for (let i = 0; i < homesFeedArray.length; i++) {
-      if (homesFeedArray[i].cqcRating === userinput) {
+      if (
+        homesFeedArray[i].cqcRating.toLowerCase() === userinput.toLowerCase()
+      ) {
+        arrayFiltered.push(homesFeedArray[i]);
+      }
+      if (homesFeedArray[i].pricesFrom === +userinput) {
+        arrayFiltered.push(homesFeedArray[i]);
+      }
+      let bool = userinput === "eco-friendly" ? true : false;
+      if (homesFeedArray[i].greenerChoice === bool) {
         arrayFiltered.push(homesFeedArray[i]);
       }
     }
@@ -32,7 +41,7 @@ const FilterInput = ({ data, onFilteredDataAvailable }) => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target.value);
+    console.log(typeof e.target.value);
     setUserInput(e.target.value);
   };
 
@@ -44,7 +53,7 @@ const FilterInput = ({ data, onFilteredDataAvailable }) => {
             className="form"
             onChange={handleChange}
             type="name"
-            placeholder="cqcrating"
+            placeholder="eco-friendly, cqcrating, price, etc"
             data-testid="cqcratinginput"
           />
         </form>
