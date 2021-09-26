@@ -34,8 +34,9 @@ const Card = ({ onDataAvailable, data }) => {
       homesFeedArray.push(value);
     }
     const imagesUrl = `https://lottie-boh-assets.s3.eu-west-2.amazonaws.com/`;
-    console.log("BUUUU", data);
-    let feedToRender = data.length > 0 ? data : homesFeedArray;
+
+    let feedToRender =
+      data === undefined || data.length === 0 ? homesFeedArray : data;
     return feedToRender.map((houses) => {
       return (
         <li className="list">
