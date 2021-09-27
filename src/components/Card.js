@@ -28,13 +28,13 @@ const Card = ({ onDataAvailable, data }) => {
       });
   };
 
-  const homesPerPage = 5;
+  const homesPerPage = 6;
   const pagesVisited = pageNumber * homesPerPage;
 
   const displayHomes = (homesFeed) => {
     console.log(homesFeed);
     let homesFeedArray = [];
-    for (const [key, value] of Object.entries(homesFeed)) {
+    for (const value of Object.values(homesFeed)) {
       homesFeedArray.push(value);
     }
     const imagesUrl = `https://lottie-boh-assets.s3.eu-west-2.amazonaws.com/`;
@@ -46,8 +46,8 @@ const Card = ({ onDataAvailable, data }) => {
       .slice(pagesVisited, pagesVisited + homesPerPage)
       .map((houses) => {
         return (
-          <li className="list">
-            <div>
+          <div className="card">
+            <div className="cardContent">
               <img
                 className="images"
                 src={imagesUrl + houses.imagePath}
@@ -57,17 +57,17 @@ const Card = ({ onDataAvailable, data }) => {
               <p>{houses.cqcRating} CQC Rating</p>
               <p>£ {houses.pricesFrom}</p>
             </div>
-          </li>
+          </div>
         );
       });
   };
 
   useEffect(() => {
     loadingList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const pageCount = (homesNumber) => {
-    console.log("----->");
     return Math.ceil(Object.keys(homesNumber).length / homesPerPage);
   };
 

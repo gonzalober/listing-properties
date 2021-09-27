@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const userInputFilter = (data, userinput) => {
   let homesFeedArray = [];
-  for (const [key, value] of Object.entries(data)) {
+  for (const value of Object.values(data)) {
     homesFeedArray.push(value);
   }
 
@@ -17,9 +17,11 @@ const userInputFilter = (data, userinput) => {
       if (homesFeedArray[i].pricesFrom === +userinput) {
         arrayFiltered.push(homesFeedArray[i]);
       }
-      let bool = userinput === "eco-friendly" ? true : false;
-      if (homesFeedArray[i].greenerChoice === bool) {
-        arrayFiltered.push(homesFeedArray[i]);
+      if (userinput === "eco-friendly") {
+        let bool = userinput === "eco-friendly" ? true : false;
+        if (homesFeedArray[i].greenerChoice === bool) {
+          arrayFiltered.push(homesFeedArray[i]);
+        }
       }
     }
     console.log("INFOOOOO====>>>>>", arrayFiltered);

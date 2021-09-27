@@ -1,6 +1,7 @@
 import Card from "../components/Card";
 import FilterInput from "../components/FilterInput";
 import { useState } from "react";
+import logo from "../assets/logo.png";
 
 const Home = () => {
   const [homesListData, sethomesListData] = useState();
@@ -16,7 +17,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>lottie</h1>
+      <img src={logo} className="logo" alt="logo" />
       <FilterInput
         data={homesListData}
         onFilteredDataAvailable={handleFilteredDataAvailable}
