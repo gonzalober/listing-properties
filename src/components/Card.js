@@ -40,24 +40,28 @@ const Card = ({ onDataAvailable, data }) => {
     let feedToRender =
       data === undefined || data.length === 0 ? homesFeedArray : data;
 
-    return feedToRender
-      .slice(pagesVisited, pagesVisited + homesPerPage)
-      .map((houses, index) => {
-        return (
-          <div className="card" key={index}>
-            <div className="cardContent">
-              <img
-                className="images"
-                src={imagesUrl + houses.imagePath}
-                alt="new"
-              ></img>
-              <p>{houses.name}</p>
-              <p>{houses.cqcRating} CQC Rating</p>
-              <p>£ {houses.pricesFrom}</p>
-            </div>
-          </div>
-        );
-      });
+    return (
+      <div class="container">
+        {feedToRender
+          .slice(pagesVisited, pagesVisited + homesPerPage)
+          .map((houses, index) => {
+            return (
+              <div className="card" key={index}>
+                <div className="cardContent">
+                  <img
+                    className="images"
+                    src={imagesUrl + houses.imagePath}
+                    alt="new"
+                  ></img>
+                  <p>{houses.name}</p>
+                  <p>{houses.cqcRating} CQC Rating</p>
+                  <p>£ {houses.pricesFrom}</p>
+                </div>
+              </div>
+            );
+          })}
+      </div>
+    );
   };
 
   useEffect(() => {
