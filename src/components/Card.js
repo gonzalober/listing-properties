@@ -14,7 +14,6 @@ const Card = ({ onDataAvailable, data }) => {
       .then((d) => {
         const dataStr = d.replace(/'/g, '"').slice(0, -3) + "}";
         const data = JSON.parse(dataStr);
-        console.log(typeof data);
         onDataAvailable(data);
         setHomeList(data);
         setLoading(false);
@@ -32,7 +31,6 @@ const Card = ({ onDataAvailable, data }) => {
   const pagesVisited = pageNumber * homesPerPage;
 
   const displayHomes = (homesFeed) => {
-    console.log(homesFeed);
     let homesFeedArray = [];
     for (const value of Object.values(homesFeed)) {
       homesFeedArray.push(value);
@@ -41,12 +39,12 @@ const Card = ({ onDataAvailable, data }) => {
 
     let feedToRender =
       data === undefined || data.length === 0 ? homesFeedArray : data;
-    console.log("woppp", feedToRender.length);
+
     return feedToRender
       .slice(pagesVisited, pagesVisited + homesPerPage)
-      .map((houses) => {
+      .map((houses, index) => {
         return (
-          <div className="card">
+          <div className="card" key={index}>
             <div className="cardContent">
               <img
                 className="images"

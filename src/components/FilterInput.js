@@ -24,7 +24,7 @@ const userInputFilter = (data, userinput) => {
         }
       }
     }
-    console.log("INFOOOOO====>>>>>", arrayFiltered);
+
     return arrayFiltered;
   }
 };
