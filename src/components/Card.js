@@ -40,9 +40,7 @@ const Card = ({ onDataAvailable, data }) => {
 
     feedToRender =
       data === undefined || data.length === 0 ? homesFeedArray : data;
-    console.log(feedToRender);
-    feedToRender.sort((a, b) => a - b);
-    console.log(feedToRender);
+
     return (
       <div class="container">
         {feedToRender
@@ -69,7 +67,6 @@ const Card = ({ onDataAvailable, data }) => {
 
   useEffect(() => {
     loadingList();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
