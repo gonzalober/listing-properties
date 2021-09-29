@@ -29,6 +29,7 @@ const Card = ({ onDataAvailable, data }) => {
 
   const homesPerPage = 6;
   const pagesVisited = pageNumber * homesPerPage;
+  let feedToRender;
 
   const displayHomes = (homesFeed) => {
     let homesFeedArray = [];
@@ -37,9 +38,11 @@ const Card = ({ onDataAvailable, data }) => {
     }
     const imagesUrl = `https://lottie-boh-assets.s3.eu-west-2.amazonaws.com/`;
 
-    let feedToRender =
+    feedToRender =
       data === undefined || data.length === 0 ? homesFeedArray : data;
-
+    console.log(feedToRender);
+    feedToRender.sort((a, b) => a - b);
+    console.log(feedToRender);
     return (
       <div class="container">
         {feedToRender
@@ -66,11 +69,17 @@ const Card = ({ onDataAvailable, data }) => {
 
   useEffect(() => {
     loadingList();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const pageCount = (homesNumber) => {
-    return Math.ceil(Object.keys(homesNumber).length / homesPerPage);
+    if (homesNumber !== undefined) {
+      return Math.ceil(homesNumber.length / homesPerPage);
+    }
+    if (homesNumber !== undefined) {
+      Math.ceil(Object.keys(homesNumber).length / homesPerPage);
+    }
   };
 
   return (
@@ -86,8 +95,13 @@ const Card = ({ onDataAvailable, data }) => {
       <ReactPaginate
         previousLabel={"Previous"}
         nextLabel={"Next"}
-        pageCount={homeList.length !== 0 && !error ? pageCount(homeList) : null}
+        pageCount={
+          feedToRender !== undefined || !error || feedToRender.length !== 0
+            ? pageCount(feedToRender)
+            : pageCount(homeList)
+        }
         onPageChange={({ selected }) => setPageNumber(selected)}
+        initialPage={1}
         marginPagesDisplayed={0}
         pageRangeDisplayed={5}
         containerClassName={"paginationBttns"}

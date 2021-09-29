@@ -14,7 +14,10 @@ const userInputFilter = (data, userinput) => {
       ) {
         arrayFiltered.push(homesFeedArray[i]);
       }
-      if (homesFeedArray[i].pricesFrom === +userinput) {
+      if (
+        homesFeedArray[i].pricesFrom >= +userinput - 50 &&
+        homesFeedArray[i].pricesFrom <= +userinput + 50
+      ) {
         arrayFiltered.push(homesFeedArray[i]);
       }
       if (userinput === "eco-friendly") {
