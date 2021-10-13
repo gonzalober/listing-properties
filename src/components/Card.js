@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
+const API_URL = process.env.REACT_APP_BASE_URL;
 
 const Card = ({ onDataAvailable, data }) => {
   const [homeList, setHomeList] = useState([]);
@@ -8,7 +9,7 @@ const Card = ({ onDataAvailable, data }) => {
   const [pageNumber, setPageNumber] = useState(0);
 
   const loadingList = () => {
-    const url = `https://lottie-boh-assets.s3.eu-west-2.amazonaws.com/listings.json`;
+    const url = API_URL;
     fetch(url)
       .then((response) => response.text())
       .then((d) => {
