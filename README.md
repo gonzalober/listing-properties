@@ -1,7 +1,9 @@
 # Getting Started with Create React App
 
 This is the website deployed in Netlify:
-[Checkout some properties!](https://properties-api-frontend.netlify.app)
+[Find the latest properties available!](https://properties-api-frontend.netlify.app)
+
+Important note: please add CORS browser extension [Cors](https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=en)
 
 ## Available Scripts
 
